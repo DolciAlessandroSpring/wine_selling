@@ -1,33 +1,33 @@
-name,address,area,userRatingCount,placeId,is_client,is_intresting
+name,address,area,userRatingCount,placeId,is_already_a_client,is_already_client
 Trattoria Pizzeria Da Pino,"Hohenzollernstraße 26, 80801 München, Germany",Schwabing-West,413,ChIJXS1FOsd1nkcRBBlJleMzHvM,False,False
 Pepe e Sale,"Wilhelmstraße 15, 80801 München, Germany",Schwabing-West,208,ChIJRXFJRMd1nkcR1XojL4vrofA,False,False
 Trattoria Pizzeria Da Bello E Bello,"Elisabethstraße 19, 80796 München, Germany",Schwabing-West,507,ChIJvy51z9x1nkcR8US-x7MZBDA,False,False
 Vini e Panini,"Nordendstraße 45, 80801 München, Germany",Schwabing-West,122,ChIJJ9mTvMN1nkcRw42y0VY-Mqc,False,False
-Trattoria La Stella,"Hohenstaufenstraße 2, 80801 München, Germany",Schwabing-West,207,ChIJpaWZJ8J1nkcRuJUZqujpjW0,False,False
+Trattoria La Stella,"Hohenstaufenstraße 2, 80801 München, Germany",Schwabing-West,207,ChIJpaWZJ8J1nkcRuJUZqujpjW0,True,False
 Passaparola Schwabing,"Kaiserstraße 47, 80801 München, Germany",Schwabing-West,418,ChIJ--v4m8Z1nkcRP9-FCgXADgY,False,False
 Royal Cookhouse Pizzeria,"Belgradstraße 47, 80796 München, Germany",Schwabing-West,493,ChIJ62y0YiV1nkcRvXCclJzO5ys,False,False
 Bucci Bar,"Occamstraße 9, 80802 München, Germany",Schwabing-West,127,ChIJM4DTvYp1nkcRvIdPoVb78JI,False,False
 Osteria Blu Notte,"Schleißheimer Str. 69, 80797 München, Germany",Schwabing-West,230,ChIJxx_QFt51nkcR-GOwtsvG1I0,False,False
 Trattoria La Piazza,"Kölner Pl. 7, 80804 München, Germany",Schwabing-West,834,ChIJXTcUK8x1nkcRjIepGhhp_f8,False,False
-Restaurant Da Larosa,"Karl-Theodor-Straße 31a, 80803 München, Germany",Schwabing-West,184,ChIJUSzIcmF1nkcRwtcJBGdgmbg,False,False
+Restaurant Da Larosa,"Karl-Theodor-Straße 31a, 80803 München, Germany",Schwabing-West,184,ChIJUSzIcmF1nkcRwtcJBGdgmbg,True,False
 Neuhauser,"Belgradstraße 1, 80796 München, Germany",Schwabing-West,949,ChIJn920YsR1nkcRvwGzEML7M9k,False,False
 Trattoria Da Fausto,"Helmtrudenstraße 1, 80805 München, Germany",Schwabing-West,1127,ChIJCbnYdyLfnUcR1DcFhCozPQ0,False,False
 Osteria Sarda,"Leopoldstraße 171a, 80804 München, Germany",Schwabing-West,176,ChIJO9Cht4F1nkcR6qMDCK9OPoM,False,False
-Il Grappolo,"Adalbertstraße 28, 80799 München, Germany",Schwabing-West,302,ChIJT1He3-p1nkcRwXkbOF3C6W4,False,False
-Restaurant Al Torchio,"Amalienstraße 42, 80799 München, Germany",Schwabing-West,208,ChIJKQygl-x1nkcRoFoEvsKqK2Q,False,False
+Il Grappolo,"Adalbertstraße 28, 80799 München, Germany",Schwabing-West,302,ChIJT1He3-p1nkcRwXkbOF3C6W4,True,False
+Restaurant Al Torchio,"Amalienstraße 42, 80799 München, Germany",Schwabing-West,208,ChIJKQygl-x1nkcRoFoEvsKqK2Q,True,False
 Goloseo Grande,"Karl-Weinmair-Straße 9-11, 80807 München, Germany",Schwabing-West,400,ChIJl7t0wDZ0nkcRkqhwm1eitDg,False,False
-60 Secondi Pizza Napoletana,"Occamstraße 11, 80802 München, Germany",Schwabing-West,1737,ChIJf2mEvLN1nkcRe9wVo78vKjI,False,False
-Limoni Ristorante,"Amalienstraße 38, 80799 München, Germany",Schwabing-West,600,ChIJq7QTkex1nkcRxxkWwIT4PiU,False,False
+60 Secondi Pizza Napoletana,"Occamstraße 11, 80802 München, Germany",Schwabing-West,1737,ChIJf2mEvLN1nkcRe9wVo78vKjI,False,True
+Limoni Ristorante,"Amalienstraße 38, 80799 München, Germany",Schwabing-West,600,ChIJq7QTkex1nkcRxxkWwIT4PiU,True,False
 L'Osteria München Bauhausplatz,"Bauhauspl. 4-6, 80807 München, Germany",Schwabing-West,2257,ChIJEV2B_6d1nkcRyCSYoiQFVS4,False,False
 Trattoria Donna Maria,"Marktstraße 2, 80802 München, Germany",Schwabing-West,187,ChIJ4Wflsbl1nkcRXJ3gERBysjA,False,False
 L'Osteria München Künstlerhaus,"Lenbachpl. 8, 80333 München, Germany",Schwabing-West,9091,ChIJSQbzt_Z1nkcR-FyOQcmfG9s,False,False
 Garbo by the sea,"Kaiserstraße 67, 80801 München, Germany",Schwabing-West,688,ChIJpwRWXcR1nkcR3L9BWZNeHyQ,False,False
 Lo Spuntino,"Georgenstraße 93, 80798 München, Germany",Schwabing-West,239,ChIJJcWent11nkcRcN_eJ72fTnk,False,False
 Trattoria Paganini,"Marchgrabenpl. 3A, 80805 München, Germany",Schwabing-West,248,ChIJiw61K090nkcRwRlDwlOch0w,False,False
-Osteria Italiana,"Schellingstraße 62, 80799 München, Germany",Schwabing-West,620,ChIJmWIcFul1nkcR_r5jRrPG6zU,False,False
+Osteria Italiana,"Schellingstraße 62, 80799 München, Germany",Schwabing-West,620,ChIJmWIcFul1nkcR_r5jRrPG6zU,True,False
 Ristorante Grissini e Vini,"Ungererstraße 161, 80805 München, Germany",Schwabing-West,222,ChIJyXPCL0x0nkcRaodxvTxt5xA,False,False
 "Salve - Bar, Cucina & Pizzeria","Hohenzollernstraße 124, 80796 München, Germany",Schwabing-West,333,ChIJ-Y3ME6F1nkcRzUVhJOHEYzU,False,False
-Birreria e Trattoria Seerose,"Feilitzschstraße 32, 80802 München, Germany",Schwabing-West,634,ChIJvzHI1Lt1nkcRugB9b1-oUmU,False,False
+Birreria e Trattoria Seerose,"Feilitzschstraße 32, 80802 München, Germany",Schwabing-West,634,ChIJvzHI1Lt1nkcRugB9b1-oUmU,True,False
 Schwabing | Forza Napoli®,"Kurfürstenpl. 5, 80796 München, Germany",Schwabing-West,273,ChIJMXr3eWR1nkcRClTcSwOFU30,False,False
 Ristorante La Lucania,"Situlistraße 54, 80939 München, Germany",Schwabing-West,458,ChIJvcS8aQoECUERqy2m-BOAlRc,False,False
 City Lounge Munich,"Sonnenstraße 5, 80331 München, Germany",Schwabing-West,1573,ChIJg4VX_vZ1nkcRTXke2R-vgvc,False,False
