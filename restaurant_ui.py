@@ -1,115 +1,144 @@
 import pandas as pd
 import streamlit as st
 
-# Set wide layout
+# ---------- Page Setup ----------
 st.set_page_config(layout="wide")
 
-# Load the data
-csv_path = '/Users/adolci/OneDrive - Axel Springer SE/Python/private/wine_selling/restaurants_in_schwabing_west_app.csv'
+# ---------- Load Data ----------
+csv_path = '/Users/adolci/OneDrive - Axel Springer SE/Python/private/wine_selling/restaurants_in_schwabing_west.csv'
 df = pd.read_csv(csv_path)
 
-# Initialize client status in session state if not already set
+# ---------- Session State Init ----------
 if 'client_status' not in st.session_state:
-    if 'is_already_a_client' in df.columns:
-        st.session_state.client_status = {
-            row['placeId']: bool(row['is_already_a_client']) for _, row in df.iterrows()
-        }
-    else:
-        st.session_state.client_status = {
-            row['placeId']: False for _, row in df.iterrows()
-        }
+    st.session_state.client_status = {
+        row['placeId']: bool(row.get('is_already_a_client', False))
+        for _, row in df.iterrows()
+    }
 
-# # Page title with wine glass emoji
-# st.title("🍷 Italian Restaurants 🍷")
-
-# Create columns for the title and button layout
-col1, col2 = st.columns([4, 1])
-with col1:
-    st.title("🍷 Italian Restaurants 🍷")
-with col2:
-    if st.button("Save", key="save_button"):
-        df['is_already_a_client'] = df['placeId'].map(st.session_state.client_status)
-        output_csv_path = '/Users/adolci/OneDrive - Axel Springer SE/Python/private/wine_selling/restaurants_in_schwabing_west_app.csv'
-        df.to_csv(output_csv_path, index=False)
-        st.success(f"File saved successfully to: {output_csv_path}")
-
-# Initialize sorting state
+if 'interest_status' not in st.session_state:
+    st.session_state.interest_status = {
+        row['placeId']: bool(row.get('is_an_interesting_client', False))
+        for _, row in df.iterrows()
+    }
 if 'sort_column' not in st.session_state:
-    st.session_state.sort_column = 'name'  # Default sort by 'name'
+    st.session_state.sort_column = 'name'
     st.session_state.sort_order = 'ascending'
 
-# Sort function based on clicked column
-def sort_df(df, column_name, sort_order='ascending'):
-    ascending = sort_order == 'ascending'
-    return df.sort_values(by=column_name, ascending=ascending)
+# ---------- Header with Save Button ----------
+col_title, col_button = st.columns([4, 1])
+with col_title:
+    st.title("🍷 Italian Restaurants 🍷")
 
-# Filter for "Is it already a client?"
+with col_button:
+    if st.button("Save", key="save_button"):
+        df['is_already_a_client'] = df['placeId'].map(st.session_state.client_status)
+        df.to_csv(csv_path, index=False)
+        st.success("✅ File saved successfully!")
+
+# ---------- Client Filter ----------
 def filter_client_status(df):
-    status_filter = st.radio(
+    status = st.radio(
         "Filter by client status:",
         ("All", "My clients", "Not my clients"),
-        index=0  # Default to "Both"
+        horizontal=True
     )
-    if status_filter == "My clients":
-        return df[df['placeId'].isin([place_id for place_id, status in st.session_state.client_status.items() if status])]
-    elif status_filter == "Not my clients":
-        return df[~df['placeId'].isin([place_id for place_id, status in st.session_state.client_status.items() if status])]
+    if status == "My clients":
+        return df[df['placeId'].map(st.session_state.client_status)]
+    elif status == "Not my clients":
+        return df[~df['placeId'].map(st.session_state.client_status)]
     return df
 
-# Display column headers and handle sorting by column click
-def display_column_headers():
-    col1, col2, col3, col4, col5, col6 = st.columns([3, 3, 2, 2, 2, 2])
+# ---------- Interest Filter ----------
+def filter_interest_status(df):
+    status = st.radio(
+        "Filter by interest status:",
+        ("All", "Interested in"),
+        horizontal=True
+    )
+    if status == "Interested in":
+        return df[df['placeId'].map(st.session_state.interest_status)]
+    return df
 
-    # Clickable columns (Sort columns when clicked)
-    with col1:
-        if st.button("Name", key="sort_name"):
-            st.session_state.sort_column = 'name'
-            st.session_state.sort_order = 'ascending' if st.session_state.sort_order == 'descending' else 'descending'
-    with col2:
-        if st.button("Address", key="sort_address"):
-            st.session_state.sort_column = 'address'
-            st.session_state.sort_order = 'ascending' if st.session_state.sort_order == 'descending' else 'descending'
-    with col3:
-        if st.button("Area", key="sort_area"):
-            st.session_state.sort_column = 'area'
-            st.session_state.sort_order = 'ascending' if st.session_state.sort_order == 'descending' else 'descending'
-    with col4:
-        if st.button("Number of Reviews", key="sort_reviews"):
-            st.session_state.sort_column = 'userRatingCount'
-            st.session_state.sort_order = 'ascending' if st.session_state.sort_order == 'descending' else 'descending'
-    with col5:
-        # "Is it already a client?" will be a filter, not a sort option
-        st.markdown("**Is it already a client?**")
+# ---------- Sorting ----------
+def sort_df(df, column):
+    ascending = st.session_state.sort_order == 'ascending'
+    return df.sort_values(by=column, ascending=ascending)
 
-# Display restaurant data
-def display_restaurant_data(row):
-    col1, col2, col3, col4, col5, col6 = st.columns([3, 3, 2, 2, 2, 2])
+def update_sort(column_name):
+    if st.session_state.sort_column == column_name:
+        st.session_state.sort_order = 'ascending' if st.session_state.sort_order == 'descending' else 'descending'
+    else:
+        st.session_state.sort_column = column_name
+        st.session_state.sort_order = 'ascending'
 
-    with col1:
+# ---------- Searching ----------
+def search_df(df): 
+    search_query = st.text_input("🔍 Search restaurants typing a name, address or area:")
+
+    if search_query:
+        df = df[
+            df['name'].str.contains(search_query, case=False, na=False) |
+            df['address'].str.contains(search_query, case=False, na=False) |
+            df['area'].str.contains(search_query, case=False, na=False)
+        ]
+    return df
+
+# ---------- Column Headers ----------
+def display_headers():
+    cols = st.columns([3, 3, 2, 2, 2, 2, 2])
+    headers = [
+        ("Name", "name"),
+        ("Address", None),
+        ("Area", None),
+        ("Number of Reviews", "userRatingCount"),
+        ("Is it already a client?", None),
+        ("Is it an interesting client?", None),
+        ("Google Maps Link", None)
+    ]
+    for col, (label, field) in zip(cols, headers):
+        with col:
+            if field:
+                if st.button(label, key=f"sort_{field}"):
+                    update_sort(field)
+            else:
+                st.markdown(f"**{label}**")
+
+# ---------- Display Row ----------
+def display_row(row):
+    cols = st.columns([3, 3, 2, 2, 2, 2, 2])
+    with cols[0]:
         st.markdown(f"**{row['name']}**")
-    with col2:
+    with cols[1]:
         st.markdown(row['address'])
-    with col3:
+    with cols[2]:
         st.markdown(row['area'])
-    with col4:
-        st.markdown(f"{row['userRatingCount']}")
-    with col5:
-        # Checkbox to mark if restaurant is already a client
-        checked = st.checkbox("", value=st.session_state.client_status.get(row['placeId'], False), key=row['placeId'])
+    with cols[3]:
+        st.markdown(str(row['userRatingCount']))
+    with cols[4]:
+        checked = st.checkbox(
+            "", value=st.session_state.client_status.get(row['placeId'], False),
+            key=f"{row['placeId']}_client"
+        )
         st.session_state.client_status[row['placeId']] = checked
-    with col6:
-        st.markdown(f"[View on Google Maps](https://www.google.com/maps/place/?q=place_id:{row['placeId']})", unsafe_allow_html=True)
+    with cols[5]:
+        checked = st.checkbox(
+            "", value=st.session_state.interest_status.get(row['placeId'], False),
+            key=f"{row['placeId']}_interest"
+        )
+        st.session_state.interest_status[row['placeId']] = checked
+    with cols[6]:
+        st.markdown(
+            f"[View on Google Maps](https://www.google.com/maps/place/?q=place_id:{row['placeId']})",
+            unsafe_allow_html=True
+        )
 
-# Apply filter for "Is it already a client?" column
+# ---------- Main Display ----------
 df_filtered = filter_client_status(df)
+df_filtered = filter_interest_status(df_filtered)
+df_filtered = search_df(df_filtered)
+display_headers()
+df_sorted = sort_df(df_filtered, st.session_state.sort_column)
 
-# Display the column headers and handle sorting
-display_column_headers()
-
-# Sort DataFrame based on selected column and order
-df_sorted = sort_df(df_filtered, st.session_state.sort_column, st.session_state.sort_order)
-
-# Display each restaurant in sorted order
-for i, row in df_sorted.iterrows():
-    st.markdown("---")  # horizontal divider between rows
-    display_restaurant_data(row)
+for _, row in df_sorted.iterrows():
+    st.markdown("---")
+    display_row(row)
